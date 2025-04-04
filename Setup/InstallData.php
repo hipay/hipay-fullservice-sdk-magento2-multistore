@@ -89,7 +89,7 @@ class InstallData implements InstallDataInterface
     /**
      * Secondary store code constant
      */
-    protected const SECONDARY_STORE_CODE = 'secondary_store';
+    protected const SECONDARY_STORE_CODE = 'store2';
 
     /**
      * InstallData constructor.
