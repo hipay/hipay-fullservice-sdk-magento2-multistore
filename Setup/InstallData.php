@@ -12,6 +12,7 @@ namespace HiPay\MultiStores\Setup;
 use Magento\Framework\App\Area;
 use Magento\Framework\App\AreaList;
 use Magento\Framework\App\State;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -140,7 +141,11 @@ class InstallData implements InstallDataInterface
     {
         $setup->startSetup();
         $this->_state->setAreaCode(Area::AREA_ADMINHTML);
-        $areaModel = $this->_areaList->getArea($this->_state->getAreaCode());
+        try {
+            $this->_state->getAreaCode();
+        } catch (LocalizedException $e) {
+            $this->_state->setAreaCode(Area::AREA_ADMINHTML);
+        }
         // Enable store codes in URLs globally
         $this->configResource->saveConfig(
             'web/url/use_store',
